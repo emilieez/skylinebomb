@@ -1,9 +1,8 @@
+import math
 import sys
 
-import pygame
-
+from bomb import *
 from building import *
-from constants import *
 from plane import Plane
 from skyproblem import get_sky_line
 
@@ -21,17 +20,6 @@ def get_skydata():
 
 
 def draw_buildings():
-    pass
-
-
-if __name__ == '__main__':
-    draw_buildings()
-
-    pygame.init()
-    screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
-    screen.fill(WHITE)
-    pygame.display.set_caption("Blocker")
-
     for building in get_skydata():
         pygame.draw.rect(screen, BUILDING_COLOUR,
                          (building.left,
@@ -39,8 +27,18 @@ if __name__ == '__main__':
                           building.right - building.left,
                           building.height), 0)
 
+
+if __name__ == '__main__':
+    pygame.init()
+    screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
+    screen.fill(WHITE)
+    pygame.display.set_caption("Blocker")
+
+    draw_buildings()
+
     block_size = 100, 100, 100, 100
     plane = Plane(screen, 50, 50, SCREEN_WIDTH // 2, 0, )
+    bomb = Bomb(screen, (0, 255, 0), (plane.x_pos, plane.y_pos), 20)
 
     while True:
         for event in pygame.event.get():
@@ -48,6 +46,11 @@ if __name__ == '__main__':
                 sys.exit()
             elif event.type == pygame.KEYUP:
                 plane.perform_key_events(event.key)
+                if event.key == pygame.K_DOWN:
+                    bomb.x_pos = math.floor(plane.x_pos)
+                    bomb.y_pos = math.floor(plane.y_pos)
+                    Bomb.drop = True
 
         plane.move()
+        bomb.drop_bomb()
         pygame.display.update()
