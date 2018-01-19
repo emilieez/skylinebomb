@@ -1,9 +1,11 @@
-import pygame
 import sys
-from constants import *
-from block import Block
-from skyproblem import get_sky_line
+
+import pygame
+
 from building import *
+from constants import *
+from plane import Plane
+from skyproblem import get_sky_line
 
 
 def get_skydata():
@@ -39,8 +41,7 @@ if __name__ == '__main__':
                           ), 0)
 
     block_size = 100, 100, 100, 100
-
-    block = Block(screen, 50, 50, SCREEN_WIDTH // 2, 0, )
+    plane = Plane(screen, 50, 50, SCREEN_WIDTH // 2, 0, )
 
     while True:
 
@@ -48,5 +49,5 @@ if __name__ == '__main__':
             if event.type == pygame.QUIT:
                 sys.exit()
 
-        block.move(1)
+        plane.move(0.5)
         pygame.display.update()
