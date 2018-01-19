@@ -33,21 +33,21 @@ if __name__ == '__main__':
     pygame.display.set_caption("Blocker")
 
     for building in get_skydata():
-        pygame.draw.rect(screen, BLUE,
+        pygame.draw.rect(screen, BUILDING_COLOUR,
                          (building.left,
                           SCREEN_HEIGHT - building.height,
                           building.right - building.left,
-                          building.height
-                          ), 0)
+                          building.height), 0)
 
     block_size = 100, 100, 100, 100
     plane = Plane(screen, 50, 50, SCREEN_WIDTH // 2, 0, )
 
     while True:
-
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 sys.exit()
+            elif event.type == pygame.KEYUP:
+                plane.perform_key_events(event.key)
 
-        plane.move(0.5)
+        plane.move()
         pygame.display.update()
