@@ -30,14 +30,14 @@ def draw_buildings():
 if __name__ == '__main__':
     pygame.init()
     screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
-    screen.fill(WHITE)
+    screen.fill(BLACK)
     pygame.display.set_caption("Blocker")
 
     draw_buildings()
 
     block_size = 100, 100, 100, 100
-    plane = Plane(screen, 100, 50, SCREEN_WIDTH // 2, 0, )
-    bomb = Bomb(screen, GREEN, (plane.x_pos, plane.y_pos), 10)
+    plane = Plane(screen, 100, 50, SCREEN_WIDTH // 2, 5)
+    bomb = Bomb(screen, BOMB_COLOUR, (plane.x_pos, plane.y_pos), 10)
 
     while True:
         for event in pygame.event.get():

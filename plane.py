@@ -18,7 +18,7 @@ class Plane:
         self.block = pygame.Surface((width, height))
         self.block.fill(PLANE_COLOUR)
         self.whiteblock = pygame.Surface((width, height))
-        self.whiteblock.fill(WHITE)
+        self.whiteblock.fill(BLACK)
 
     def erase(self):
         self.screen.blit(self.whiteblock, (self.x_pos, self.y_pos))

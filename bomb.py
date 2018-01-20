@@ -16,17 +16,15 @@ class Bomb:
 
         self.bomb = pygame.Surface((radius, width))
         self.bomb.fill(PLANE_COLOUR)
-        self.whiteblock = pygame.Surface((radius, radius))
-        self.whiteblock.fill(WHITE)
 
     def draw(self, x_pos, y_pos):
         pygame.draw.circle(self.surface, self.color, (x_pos, y_pos), self.radius, 0)
 
     def erase(self, x_pos, y_pos):
         curr_eraser_radius = self.radius
-        if curr_eraser_radius < 80 and y_pos == SCREEN_HEIGHT - self.radius:
-            curr_eraser_radius += 80
-        pygame.draw.circle(self.surface, WHITE, (x_pos, y_pos), curr_eraser_radius, 0)
+        if curr_eraser_radius < 155 and y_pos == SCREEN_HEIGHT - self.radius:
+            curr_eraser_radius += 155
+        pygame.draw.circle(self.surface, BLACK, (x_pos, y_pos), curr_eraser_radius, 0)
 
     def drop_bomb(self):
         if self.y_pos <= SCREEN_HEIGHT + self.radius and Bomb.drop:
