@@ -18,22 +18,13 @@ def get_skydata():
     return buildings
 
 
-def draw_buildings():
-    for building in get_skydata():
-        pygame.draw.rect(screen, BUILDING_COLOUR,
-                         (building.left,
-                          SCREEN_HEIGHT - building.height,
-                          building.right - building.left,
-                          building.height), 0)
-
-
 if __name__ == '__main__':
     pygame.init()
     screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
     screen.fill(BLACK)
     pygame.display.set_caption("Blocker")
 
-    draw_buildings()
+    Building.draw_buildings(screen, get_skydata())
 
     block_size = 100, 100, 100, 100
     plane = Plane(screen, 100, 50, SCREEN_WIDTH // 2, 5)

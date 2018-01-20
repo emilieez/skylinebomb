@@ -1,4 +1,9 @@
-class Building():
+import pygame
+
+from constants import *
+
+
+class Building:
     coords = {}
 
     def __init__(self, left, height, right):
@@ -8,8 +13,11 @@ class Building():
 
         Building.coords[(left, right)] = height
 
-    def get_height(self, base):
-        return Building.coords[base]
-
-    def __str__(self):
-        return "{} {} {}".format(self.left, self.height, self.right)
+    @classmethod
+    def draw_buildings(cls, screen, data):
+        for building in data:
+            pygame.draw.rect(screen, BUILDING_COLOUR,
+                             (building.left,
+                              SCREEN_HEIGHT - building.height,
+                              building.right - building.left,
+                              building.height), 0)
