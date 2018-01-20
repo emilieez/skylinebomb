@@ -8,7 +8,7 @@ from plane import *
 screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
 screen.fill(BLACK)
 
-plane = Plane(screen, 100, 50, SCREEN_WIDTH // 2, 5)
+plane = Plane(screen, PLANE_WIDTH, PLANE_HEIGHT, SCREEN_WIDTH // 2, 5)
 bomb = Bomb(screen, BOMB_COLOUR, (0, 0), 10)
 
 
@@ -18,7 +18,9 @@ def get_skydata():
     buildings = []
     for line in input_file:
         coords = line.split()
-        buildings.append(Building(int(coords[0]) * 22, int(coords[1]) * 22, int(coords[2]) * 22))
+        buildings.append(Building(int(coords[0]) * SCALE,
+                                  int(coords[1]) * SCALE,
+                                  int(coords[2]) * SCALE))
 
     return buildings
 
@@ -46,8 +48,8 @@ def event_resolver(event):
     if event.type == pygame.QUIT:
         sys.exit()
     elif event.type == pygame.KEYUP:
-        plane.perform_key_events(event.key)
         if event.key == pygame.K_DOWN:
             bomb.x_pos = math.ceil(plane.x_pos + plane.width / 2)
             bomb.y_pos = math.ceil(plane.y_pos + plane.height)
             Bomb.drop = True
+        plane.perform_key_events(event.key)
