@@ -6,6 +6,7 @@ if __name__ == '__main__':
     pygame.init()
     pygame.display.set_caption("Blocker")
     environment.draw_buildings()
+    environment.set_text()
 
     while True:
         for event in pygame.event.get():

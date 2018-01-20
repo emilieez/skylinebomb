@@ -32,6 +32,16 @@ def draw_buildings():
                           building.height), 0)
 
 
+def set_text():
+    pygame.font.init()
+    myfont = pygame.font.SysFont('Comic Sans MS', 15)
+    textsurface = myfont.render('SPACE...stop' + ' ' * 15 +
+                                'LEFT/RIGHT...speed -/+' + ' ' * 15 +
+                                'DOWN...bomb',
+                                True, (255, 255, 255))
+    screen.blit(textsurface, (100, 100))
+
+
 def event_resolver(event):
     if event.type == pygame.QUIT:
         sys.exit()
