@@ -5,6 +5,12 @@ from bomb import *
 from building import *
 from plane import *
 
+screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
+screen.fill(BLACK)
+
+plane = Plane(screen, 100, 50, SCREEN_WIDTH // 2, 5)
+bomb = Bomb(screen, BOMB_COLOUR, (0, 0), 10)
+
 
 def get_skydata():
     input_file = open(SKYDATA)
@@ -17,13 +23,7 @@ def get_skydata():
     return buildings
 
 
-def get_screen():
-    screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
-    screen.fill(BLACK)
-    return screen
-
-
-def draw_buildings(screen):
+def draw_buildings():
     for building in get_skydata():
         pygame.draw.rect(screen, BUILDING_COLOUR,
                          (building.left,
@@ -32,15 +32,7 @@ def draw_buildings(screen):
                           building.height), 0)
 
 
-def get_plane(screen):
-    return Plane(screen, 100, 50, SCREEN_WIDTH // 2, 5)
-
-
-def get_bomb(screen):
-    return Bomb(screen, BOMB_COLOUR, (0, 0), 10)
-
-
-def event_resolver(event, plane, bomb):
+def event_resolver(event):
     if event.type == pygame.QUIT:
         sys.exit()
     elif event.type == pygame.KEYUP:
