@@ -27,18 +27,16 @@ class Plane:
         self.screen.blit(self.block, (self.x_pos, self.y_pos))
 
     def perform_key_events(self, evkey):
-        # left and right arrow to change speed
         if evkey == pygame.K_LEFT:
             Plane.curr_displacement = Plane.curr_displacement / 2
             self.x_pos -= Plane.curr_displacement
         if evkey == pygame.K_RIGHT:
             Plane.curr_displacement = Plane.curr_displacement * 2
             self.x_pos += Plane.curr_displacement
-        # space to stop the plane
+
         if evkey == pygame.K_SPACE:
             Plane.stopped = not Plane.stopped
 
-    # TODO: refactor continuous move (SCREEN_WIDTH - CURR_DISPLACEMENT + 10) % 10
     def move(self):
         self.erase()
         if not Plane.stopped:
