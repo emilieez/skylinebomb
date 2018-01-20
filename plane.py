@@ -42,7 +42,7 @@ class Plane:
     def move(self):
         self.erase()
         if not Plane.stopped:
-            if 0 <= self.x_pos <= SCREEN_WIDTH:
+            if 0 <= self.x_pos <= SCREEN_WIDTH - self.width / 2:
                 if not Plane.curr_direction:
                     self.x_pos -= Plane.curr_displacement
                 else:

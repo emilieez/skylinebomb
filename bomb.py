@@ -26,7 +26,7 @@ class Bomb:
         pygame.draw.circle(self.surface, WHITE, (x_pos, y_pos), self.radius, 0)
 
     def drop_bomb(self):
-        if self.y_pos <= SCREEN_HEIGHT and Bomb.drop:
+        if self.y_pos <= SCREEN_HEIGHT + self.radius and Bomb.drop:
             self.erase(self.x_pos, self.y_pos)
             self.y_pos += 1
             self.draw(self.x_pos, self.y_pos)

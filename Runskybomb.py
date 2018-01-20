@@ -3,18 +3,17 @@ import sys
 
 from bomb import *
 from building import *
+from constants import *
 from plane import Plane
-from skyproblem import get_sky_line
 
 
 def get_skydata():
-    skydata = str(get_sky_line()).split()
+    input_file = open(SKYDATA)
 
     buildings = []
-    idx = 0
-    while idx < len(skydata) - 2:
-        buildings.append(Building(int(skydata[idx]) * 22, int(skydata[idx + 1]) * 22, int(skydata[idx + 2]) * 22))
-        idx += 2
+    for line in input_file:
+        coords = line.split()
+        buildings.append(Building(int(coords[0]) * 22, int(coords[1]) * 22, int(coords[2]) * 22))
 
     return buildings
 
@@ -37,8 +36,8 @@ if __name__ == '__main__':
     draw_buildings()
 
     block_size = 100, 100, 100, 100
-    plane = Plane(screen, 50, 50, SCREEN_WIDTH // 2, 0, )
-    bomb = Bomb(screen, (0, 255, 0), (plane.x_pos, plane.y_pos), 20)
+    plane = Plane(screen, 100, 50, SCREEN_WIDTH // 2, 0, )
+    bomb = Bomb(screen, (0, 255, 0), (plane.x_pos, plane.y_pos), 15)
 
     while True:
         for event in pygame.event.get():
@@ -47,8 +46,8 @@ if __name__ == '__main__':
             elif event.type == pygame.KEYUP:
                 plane.perform_key_events(event.key)
                 if event.key == pygame.K_DOWN:
-                    bomb.x_pos = math.floor(plane.x_pos)
-                    bomb.y_pos = math.floor(plane.y_pos)
+                    bomb.x_pos = math.ceil(plane.x_pos)
+                    bomb.y_pos = math.ceil(plane.y_pos)
                     Bomb.drop = True
 
         plane.move()
