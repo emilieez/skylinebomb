@@ -37,7 +37,7 @@ if __name__ == '__main__':
 
     block_size = 100, 100, 100, 100
     plane = Plane(screen, 100, 50, SCREEN_WIDTH // 2, 0, )
-    bomb = Bomb(screen, (0, 255, 0), (plane.x_pos, plane.y_pos), 15)
+    bomb = Bomb(screen, GREEN, (plane.x_pos, plane.y_pos), 10)
 
     while True:
         for event in pygame.event.get():

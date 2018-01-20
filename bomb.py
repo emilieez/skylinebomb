@@ -23,7 +23,10 @@ class Bomb:
         pygame.draw.circle(self.surface, self.color, (x_pos, y_pos), self.radius, 0)
 
     def erase(self, x_pos, y_pos):
-        pygame.draw.circle(self.surface, WHITE, (x_pos, y_pos), self.radius, 0)
+        curr_eraser_radius = self.radius
+        if curr_eraser_radius < 80 and y_pos == SCREEN_HEIGHT - self.radius:
+            curr_eraser_radius += 80
+        pygame.draw.circle(self.surface, WHITE, (x_pos, y_pos), curr_eraser_radius, 0)
 
     def drop_bomb(self):
         if self.y_pos <= SCREEN_HEIGHT + self.radius and Bomb.drop:

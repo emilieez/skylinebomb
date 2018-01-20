@@ -1,6 +1,7 @@
 SKYDATA = "skydata.txt"
 
 WHITE = (255, 255, 255)
+GREEN = (0, 255, 0)
 BUILDING_COLOUR = (60, 60, 60)
 PLANE_COLOUR = (255, 0, 0)
 
