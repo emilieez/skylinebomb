@@ -1,5 +1,5 @@
 FORMAT: 1A
-HOST: https://polls.apiblueprint.org/
+HOST: https://api.trainerize.com/
 
 # Trainerize Public API
 
@@ -7,9 +7,8 @@ This is the documentation for the Trainerize Public API
 
 ## Group Body Stats 
 
-## Add Body Stats for Client [/questions]
-
-### /bodystats/add [GET]
+## Add Body Stats for Client [/bodystats/add]
+### /bodystats/add [POST]
 
 Add a client's body stats
 
@@ -40,36 +39,27 @@ Add a client's body stats
 | 406 | Not acceptable | User can only have one bodystats a day |
 | 500 | Internal server error | General server error |
 
+
++ Request (application/json)
+
+        {
+            "userID": {{clientID}},
+            "date" : "2018-06-27",
+            "status" : "scheduled",
+            "unitWeight": "lbs", 
+            "unitBodystats":"inches"
+        }
+
 + Response 200 (application/json)
 
-        [
-            {
-                "question": "Favourite programming language?",
-                "published_at": "2015-08-05T08:40:51.620Z",
-                "choices": [
-                    {
-                        "choice": "Swift",
-                        "votes": 2048
-                    }, {
-                        "choice": "Python",
-                        "votes": 1024
-                    }, {
-                        "choice": "Objective-C",
-                        "votes": 512
-                    }, {
-                        "choice": "Ruby",
-                        "votes": 256
-                    }
-                ]
-            }
-        ]
+        {
+            "bodyStatsID": 943113
+        }
 
 
 
-## Delete Client Body Stats [/questions/2]
-
+## Delete Client Body States [/bodystats/delete]
 ### /bodystats/delete [POST]
-Delete a Client's body stats on a specific date
 
 ---
 
@@ -89,8 +79,86 @@ Delete a Client's body stats on a specific date
 
 #### Errors
 | HTTP status | statusMsg | Comments |
-| - | --- | --------- |
+| - | --- | --------- | 
 | 500 | Internal server error | General server error |
+
++ Request (application/json)
+
+        {
+            "userID": {{clientID}},
+            "date":"2018-06-27"
+        }
+
+
++ Response 200 (application/json)
+
+        {
+            "msg": "Succesfull",
+            "status": 0
+        }
+
+
+## Set Client Body Stats [/questions/2]
+### /bodystats/set [POST]
+Set the body stats of a client.
+
+---
+
+#### Request Fields:
+
+| Name | Type | Required | Description |
+|------|--|-| --------- |
+| userid | long | Yes | ID of the client to be queried
+| date | string | Yes | ```YYYY-MM-DD``` |
+| unitWeight | string | No | ```kg```, ```lbs``` |
+| unitBodystats | string | No | ```cm```, ```inches``` |
+| bodyMeasures | object | Yes | see object fields below |
+
+###### bodyMeasures
+| Name | Type |
+| ------ | --- |
+| date | date |
+| bodyWeight | decimal |
+| bodyFatPercent | decimal |
+| leanBodyMass | decimal |
+| fatMass | decimal |
+| chest | decimal |
+| shoulders | decimal |
+| rightBicep | decimal |
+| leftBicep | decimal |
+| rightForearm | decimal |
+| leftForearm | decimal |
+| rightThigh | decimal |
+| leftThigh | decimal |
+| rightCalf | decimal |
+| leftCalf | decimal |
+| waist | decimal |
+| hips | decimal |
+| neck | decimal |
+| bloodPressureDiastolic | int |
+| bloodPressureSystolic | int |
+| caliperBF | decimal |
+| caliperMode | byte |
+| caliperChest | decimal |
+| caliperTriceps | decimal |
+| caliperSubscapular | decimal |
+| caliperAxilla | decimal |
+| caliperAbdomen | decimal |
+
+---
+
+#### Success
+| HTTP status | code | statusMsg | Comments |
+| - | - | --- | --------- |
+| 200 | 0 | OK | Successful. { "bodyMeasures": null, "code": 0} |
+
+#### Errors 
+| HTTP status | code | statusMsg | Comments |
+| - | - | --- | --------- |
+| 404 | | Not found | User not found |
+| 406 | 10 | Not acceptable | User can only have one bodystats a day |
+| 412 | | Precondition failed | Missing date field |
+| 500 | | Internal server error | General server error |
 
 + Request (application/json)
 
@@ -135,7 +203,6 @@ Delete a Client's body stats on a specific date
 
 
 ## Get Client Body Stat [/questions/{question_id}]
-
 ### /bodystats/get [GET]
 
 Get the body stats of a client.
