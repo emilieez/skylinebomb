@@ -163,47 +163,58 @@ Set the body stats of a client.
 + Request (application/json)
 
         {
-            "question": "Favourite programming language?",
-            "choices": [
-                "Swift",
-                "Python",
-                "Objective-C",
-                "Ruby"
-            ]
+            "userid": {{clientID}},
+            "date": "2018-06-27",
+            "unitWeight": "lbs",
+            "unitBodystats": "inches",
+            "bodyMeasures": {
+                "bodyWeight":"66.00",
+                "bodyFatPercent":"5.00",
+                "chest":"4.00",
+                "shoulders":"4.00",
+                "rightBicep":"4.00",
+                "leftBicep":"4.00",
+                "rightForearm":"4.00",
+                "leftForearm":"4.00",
+                "rightThigh":"4.00",
+                "leftThigh":"4.00",
+                "rightCalf":"4.00",
+                "leftCalf":"4.00",
+                "waist":"4.00",
+                "hips":"4.00",
+                "neck":"4.00",
+                "restingHeartRate":"3",
+                "bloodPressureSystolic":"120",
+                "bloodPressureDiastolic":"80",
+                "caliperMode":7,
+                "caliperChest":"5",
+                "caliperTriceps":"5",
+                "caliperSubscapular":"5",
+                "caliperAxilla":"5",
+                "caliperSuprailiac":"5",
+                "caliperAbdomen":"5",
+                "caliperThigh":"5",
+                "caliperBF":"3.07"
+            }
         }
 
 + Response 201 (application/json)
 
-    + Headers
-
-            Location: /questions/2
-
     + Body
 
             {
-                "question": "Favourite programming language?",
-                "published_at": "2015-08-05T08:40:51.620Z",
-                "choices": [
-                    {
-                        "choice": "Swift",
-                        "votes": 0
-                    }, {
-                        "choice": "Python",
-                        "votes": 0
-                    }, {
-                        "choice": "Objective-C",
-                        "votes": 0
-                    }, {
-                        "choice": "Ruby",
-                        "votes": 0
-                    }
-                ]
+                "id": 943113,
+                "status": null,
+                "bodyMeasures": null,
+                "from": null,
+                "code": 0,
+                "fromProgram": false
             }
 
 
 
-## Get Client Body Stat [/questions/{question_id}]
-### /bodystats/get [GET]
+## Get Client Body Stat [/bodystats/get]
+### /bodystats/get [POST]
 
 Get the body stats of a client.
 
@@ -272,32 +283,22 @@ Get the body stats of a client.
 | 412 | Precondition failed | No entry on the date |
 | 500 | Internal server error | General server error |
 
-+ Parameters
-    + question_id (number) - ID of the client to be queried
++ Request (application/json)
+
+            { 
+                "userID": {{clientID}},
+                "date":"2018-06-27",
+                "unitWeight": "lbs", 
+                "unitBodystats":"inches"
+            }
 
 + Response 200 (application/json)
 
             {
-                "question": "Favourite programming language?",
-                "published_at": "2014-11-11T08:40:51.620Z",
-                "url": "/questions/1",
-                "choices": [
-                    {
-                        "choice": "Swift",
-                        "url": "/questions/1/choices/1",
-                        "votes": 2048
-                    }, {
-                        "choice": "Python",
-                        "url": "/questions/1/choices/2",
-                        "votes": 1024
-                    }, {
-                        "choice": "Objective-C",
-                        "url": "/questions/1/choices/3",
-                        "votes": 512
-                    }, {
-                        "choice": "Ruby",
-                        "url": "/questions/1/choices/4",
-                        "votes": 256
-                    }
-                ]
+                "id": 941530,
+                "status": "scheduled",
+                "bodyMeasures": null,
+                "from": "trainerize",
+                "code": 21,
+                "fromProgram": false
             }
