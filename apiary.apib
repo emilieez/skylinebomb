@@ -64,7 +64,9 @@ Add a client's body stats
             }
         ]
 
-## Delete Client Body Stats [/questions]
+
+
+## Delete Client Body Stats [/questions/2]
 
 ### /bodystats/delete [POST]
 Delete a Client's body stats on a specific date
@@ -126,6 +128,109 @@ Delete a Client's body stats on a specific date
                     }, {
                         "choice": "Ruby",
                         "votes": 0
+                    }
+                ]
+            }
+
+
+
+## Get Client Body Stat [/questions/{question_id}]
+
+### /bodystats/get [GET]
+
+Get the body stats of a client.
+
+---
+
+#### Request Fields:
+
+| Name | Type | Required | Description |
+|------|--|-| --------- |
+| userID | long | Yes | ID of the client to be queried
+| date | string | Yes | ```YYYY-MM-DD``` (no timezone); will grab the most recent body stat entry  |
+| unitWeight | string | Yes | ```kg```, ```lbs``` |
+| unitBodystats | string | Yes | ```inches```, ```cm``` |
+| unitDistance | string | No | ```miles```, ```km```|
+
+#### Response Fields:
+| Name | Type | Description |
+|------|--| --------- |
+| id | long | body status ID |
+| status | string | ```scheduled```, ```tracked``` |
+| bodyMeasures | object | see object fields below |
+| from | string | ```trainerize```, ```fitbit```, ```withings``` |
+| fromProgram | boolean ||
+
+###### bodyMeasures
+| Name | Type |
+| ------ | --- |
+| date | date |
+| bodyWeight | decimal |
+| bodyFatPercent | decimal |
+| leanBodyMass | decimal |
+| fatMass | decimal |
+| chest | decimal |
+| shoulders | decimal |
+| rightBicep | decimal |
+| leftBicep | decimal |
+| rightForearm | decimal |
+| leftForearm | decimal |
+| rightThigh | decimal |
+| leftThigh | decimal |
+| rightCalf | decimal |
+| leftCalf | decimal |
+| waist | decimal |
+| hips | decimal |
+| neck | decimal |
+| bloodPressureDiastolic | int |
+| bloodPressureSystolic | int |
+| caliperBF | decimal |
+| caliperMode | byte |
+| caliperChest | decimal |
+| caliperTriceps | decimal |
+| caliperSubscapular | decimal |
+| caliperAxilla | decimal |
+| caliperAbdomen | decimal |
+
+---
+
+#### Errors
+| HTTP status | statusMsg | Comments |
+| - | --- | --------- |
+| 406 | Not acceptable | Missing date field | 
+| 406 | Not acceptable | | Unit weight missing |
+| 406 | Not acceptable | | Unit bodystats missing |
+| 404 | Not found | User not found |
+| 404 | Not found | Can't find the bodystats |
+| 412 | Precondition failed | No entry on the date |
+| 500 | Internal server error | General server error |
+
++ Parameters
+    + question_id (number) - ID of the client to be queried
+
++ Response 200 (application/json)
+
+            {
+                "question": "Favourite programming language?",
+                "published_at": "2014-11-11T08:40:51.620Z",
+                "url": "/questions/1",
+                "choices": [
+                    {
+                        "choice": "Swift",
+                        "url": "/questions/1/choices/1",
+                        "votes": 2048
+                    }, {
+                        "choice": "Python",
+                        "url": "/questions/1/choices/2",
+                        "votes": 1024
+                    }, {
+                        "choice": "Objective-C",
+                        "url": "/questions/1/choices/3",
+                        "votes": 512
+                    }, {
+                        "choice": "Ruby",
+                        "url": "/questions/1/choices/4",
+                        "votes": 256
                     }
                 ]
             }
