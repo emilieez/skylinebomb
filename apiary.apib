@@ -1,0 +1,131 @@
+FORMAT: 1A
+HOST: https://polls.apiblueprint.org/
+
+# Trainerize Public API
+
+This is the documentation for the Trainerize Public API
+
+## Group Body Stats 
+
+## Add Body Stats for Client [/questions]
+
+### /bodystats/add [GET]
+
+Add a client's body stats
+
+---
+
+#### Request Fields:
+
+| Name | Type | Required | Description |
+|------|--|-| --------- |
+| userID | long | Yes | ID of the client to be queried
+| date | date | Yes | ```YYYY-MM-DD``` |
+| status | string | Yes | ```scheduled``` |
+| unitWeight | string | No | ```kg```, ```lbs``` |
+| unitBodystats | string | No | ```inches```, ```cm``` |
+
+#### Response Fields
+| Name | Type | Description |
+|------|--|---------|
+| bodyStatsid | long | dailybodystatus id |
+
+---
+
+#### Errors
+| HTTP status | statusMsg | Comments |
+| - | --- | --------- |
+| 403 | Foribdden access | Client can only access own data |
+| 404 | Not found | User not found |
+| 406 | Not acceptable | User can only have one bodystats a day |
+| 500 | Internal server error | General server error |
+
++ Response 200 (application/json)
+
+        [
+            {
+                "question": "Favourite programming language?",
+                "published_at": "2015-08-05T08:40:51.620Z",
+                "choices": [
+                    {
+                        "choice": "Swift",
+                        "votes": 2048
+                    }, {
+                        "choice": "Python",
+                        "votes": 1024
+                    }, {
+                        "choice": "Objective-C",
+                        "votes": 512
+                    }, {
+                        "choice": "Ruby",
+                        "votes": 256
+                    }
+                ]
+            }
+        ]
+
+## Delete Client Body Stats [/questions]
+
+### /bodystats/delete [POST]
+Delete a Client's body stats on a specific date
+
+---
+
+#### Request Fields
+| Name | Type | Description |
+| --- | -- | --------- |
+| userID | long | the user ID to delete the body stats for |
+| date | date | ```YYYY-MM-DD```  |
+
+---
+
+#### Success
+| HTTP status | code | statusMsg | Comments |
+| - | - | --- | --------- |
+| 200 | 0 | OK | Successful |
+| 200 | 3 | OK | Bodystat id not found or bodystat not found on that date |
+
+#### Errors
+| HTTP status | statusMsg | Comments |
+| - | --- | --------- |
+| 500 | Internal server error | General server error |
+
++ Request (application/json)
+
+        {
+            "question": "Favourite programming language?",
+            "choices": [
+                "Swift",
+                "Python",
+                "Objective-C",
+                "Ruby"
+            ]
+        }
+
++ Response 201 (application/json)
+
+    + Headers
+
+            Location: /questions/2
+
+    + Body
+
+            {
+                "question": "Favourite programming language?",
+                "published_at": "2015-08-05T08:40:51.620Z",
+                "choices": [
+                    {
+                        "choice": "Swift",
+                        "votes": 0
+                    }, {
+                        "choice": "Python",
+                        "votes": 0
+                    }, {
+                        "choice": "Objective-C",
+                        "votes": 0
+                    }, {
+                        "choice": "Ruby",
+                        "votes": 0
+                    }
+                ]
+            }
